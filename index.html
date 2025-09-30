@@ -9,6 +9,23 @@
 </head>
 
 <body>
+
+    <form id="add_book_form">
+        <input type="text" name="book_title" id="book_title" placeholder="Book Title" required>
+        <input type="text" name="book_author" id="book_author" placeholder="Book Author" required>
+        <select name="" id="book_genre" required>
+            <option value="">Genre</option>
+            <option value="action">Action</option>
+            <option value="romance">Romance</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="sci-fi">Sci-Fi</option>
+        </select>
+        <input type="text" name="book_isbn" id="book_isbn" placeholder="ISBN" required minlength="10" maxlength="14">
+        <input type="number" name="book_publication_year" id="book_publication_year" placeholder="Publication Year">
+        <input type="number" name="book_quantity" id="book_quantity" placeholder="book Quantity">
+        <button type="submit">Add book</button>
+    </form>
+
     <script src="./scripts/main.js">
 
     </script>
