@@ -1,3 +1,5 @@
+let container = document.getElementById("root");
+
 class Book {
   constructor(
     title,
@@ -17,17 +19,6 @@ class Book {
   }
 }
 
-const Book1 = new Book(
-  "Harry Potter Deadly Hallows Part 1",
-  "Jk Rowling",
-  "Fantasy",
-  "123-8989878786",
-  null,
-  10
-);
-
-// console.log(Book1);
-
 class Library {
   constructor(name) {
     this.name = name;
@@ -41,9 +32,14 @@ class Library {
   addBook(book) {
     if (book instanceof Book) {
       this.bookLists.push(book);
+      localStorage.setItem(
+        "books",
+        JSON.stringify(this.bookLists)
+      );
     } else {
       return alert("Wrong detail/Format");
     }
+    renderBooks();
   }
 
   showBooks() {
@@ -53,9 +49,8 @@ class Library {
 
 const greatLibrary = new Library("The Great Library");
 
-greatLibrary.addBook(Book1);
-
-console.log(greatLibrary.showBooks());
+greatLibrary.bookLists =
+  JSON.parse(localStorage.getItem("books")) || [];
 
 const add_book_form =
   document.getElementById("add_book_form");
@@ -91,3 +86,35 @@ function add_book(event) {
     i.value = "";
   }
 }
+
+function renderBooks() {
+  container.innerHTML = "";
+  for (let i of greatLibrary.bookLists) {
+    let div = document.createElement("div");
+    div.classList = "book__card";
+    div.innerHTML = `
+  <h2>${i.title} </h2>
+  
+  `;
+    container.appendChild(div);
+  }
+}
+
+renderBooks();
+
+const search = document.getElementById("search");
+
+let str = "hello world";
+
+// console.log(str.includes("ha"));
+
+search.addEventListener("change", (event) => {
+  let newArray = greatLibrary.bookLists.filter((book) =>
+    book.title
+      .toLowerCase()
+      .includes(event.target.value.toLowerCase())
+  );
+  console.log(newArray);
+});
+
+console.log(search);
